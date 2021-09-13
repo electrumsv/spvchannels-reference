@@ -49,17 +49,18 @@ namespace SPVChannels.API.Rest
                 NpgsqlLogManager.IsParameterLoggingEnabled = true;
               }
 
-              if (webBuilder.GetSetting("ENVIRONMENT") == "Development")
-              {
-                webBuilder.UseKestrel((context, serverOptions) =>
-                {
-                  serverOptions.Configure(context.Configuration.GetSection("Kestrel"))
-                      .Endpoint("HTTPS", listenOptions =>
-                      {
-                        listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls12;
-                      });
-                });
-              }
+              // #AllowHTTPForDevelopment
+              //if (webBuilder.GetSetting("ENVIRONMENT") == "Development")
+              //{
+              //  webBuilder.UseKestrel((context, serverOptions) =>
+              //  {
+              //    serverOptions.Configure(context.Configuration.GetSection("Kestrel"))
+              //        .Endpoint("HTTPS", listenOptions =>
+              //        {
+              //          listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls12;
+              //        });
+              //  });
+              //}
 
               webBuilder.UseStartup<Startup>();
             });

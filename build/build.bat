@@ -37,6 +37,6 @@ ROBOCOPY .\\install ..\\deploy *.*
 
 cd ..
 
-docker build --build-arg APPVERSION=%APPVERSION% -t bitcoinsv/spvchannels:%VERSIONPREFIX% -f src/Services/SPVChannels/SPVChannels.API.Rest/Dockerfile .
+docker build --build-arg APPVERSION=%APPVERSION% -t electrumsv/spvchannels:%VERSIONPREFIX% -f src/Services/SPVChannels/SPVChannels.API.Rest/Dockerfile .
 
-docker save bitcoinsv/spvchannels:%VERSIONPREFIX% -o deploy/spvchannelsapi.tar
+docker save electrumsv/spvchannels:%VERSIONPREFIX% -o deploy/spvchannelsapi.tar

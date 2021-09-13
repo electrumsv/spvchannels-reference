@@ -1,5 +1,5 @@
 ﻿version: '3.7'
- 
+
 services:
   spvchannels-db:
     container_name: spvchannels-db
@@ -35,7 +35,7 @@ services:
       - AppConfiguration:CacheSlidingExpirationTime=${CACHESLIDINGEXPIRATIONTIME}
       - AppConfiguration:CacheAbsoluteExpirationTime=${CACHEABSOLUTEEXPIRATIONTIME}
       - AppConfiguration:FirebaseCredentialsFilePath=/config/${FIREBASECREDENTIALSFILENAME}
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_NPGSQLLOGMANAGER=${NPGSQLLOGMANAGER}
       - ASPNETCORE_URLS=https://+:443
       - ASPNETCORE_HTTPS_PORT=${HTTPSPORT}

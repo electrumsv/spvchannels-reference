@@ -1,4 +1,4 @@
-# SPV Channels CE
+# SPV Channels CE - ElectrumSV SDK modified version
 
 Readme version 1.1.1.
 
@@ -7,7 +7,7 @@ Readme version 1.1.1.
 | SPV Channels Community Edition | 1.1.0 |
 
 This repository contains SPV Channels CE, which is an implementation of the [BRFC specification](https://github.com/bitcoin-sv-specs/brfc-spvchannels) for SPV channels.
-In addition to a server side implementation, it also contains the JavaScript client libraries for interacting with the server. See [Client libraries readme](client/javascript/readme.md) for more details about the client side libraries. 
+In addition to a server side implementation, it also contains the JavaScript client libraries for interacting with the server. See [Client libraries readme](client/javascript/readme.md) for more details about the client side libraries.
 
 SPV Channels provides a mechanism via which counterparties can communicate in a secure manner even in circumstances where one of the parties is temporarily offline.
 
@@ -33,15 +33,15 @@ The distribution is shared and run using Docker.
     ```
     mkdir spvchannels
     cd spvchannels
-    ```    
-   
+    ```
+
 3. Download the distribution of SPV Channels Server into the directory created in the previous step and extract the contents.
 
 4. Check that the following files are present:
 
      - `docker-compose.yml`
      - `.env`
-     
+
 5. Create a `config` folder and copy the SSL server certificate file (<certificate_file_name>.pfx) into it. This server certificate is required to setup TLS (SSL).
 
 6. Before running the SPV Channels API Server containers (spvchannels-db and spvchannels), replace some values in the `.env` file.
@@ -60,7 +60,7 @@ The distribution is shared and run using Docker.
     docker-compose up –d
     ```
 
-The docker images as specified by the `docker-compose.yml` file, are automatically pulled from Docker Hub. 
+The docker images as specified by the `docker-compose.yml` file, are automatically pulled from Docker Hub.
 
 2. Verify that all the SPV Channels Server containers are running using:
 
@@ -68,7 +68,7 @@ The docker images as specified by the `docker-compose.yml` file, are automatical
     docker ps
     ```
     The list should include `bitcoinsv/spvchannels-db` and `bitcoinsv/spvchannels`.
-   
+
 3. If everything is running you can continue to section [Account manager](#Account-manager:) to create an account.
 
 > **Note:** If you were provided with an account id and its credentials then you can skip Setting up an account and proceed to [REST interface](#REST-interface)

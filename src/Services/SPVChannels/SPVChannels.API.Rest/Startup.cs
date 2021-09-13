@@ -170,12 +170,17 @@ namespace SPVChannels.API.Rest
         context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
         // To protect against drag-and-drop style clickjacking attacks.
         context.Response.Headers.Add("X-Frame-Options", "DENY");
-        // To require connections over HTTPS and to protect against spoofed certificates.
-        context.Response.Headers.Add("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+        // #AllowHTTPForDevelopment
+        //// To require connections over HTTPS and to protect against spoofed certificates.
+        //context.Response.Headers.Add("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
         await next();
       });
 
-      app.UseHttpsRedirection();
+      // #AllowHTTPForDevelopment
+      // This fork of the SPV channels code is intended to be run in a local development environment. It does not
+      // matter if it is insecure, what does matter is that we remove all painful obstacles to developers adopting
+      // the ElectrumSV SDK And requiring local HTTPS certificates is a pain point worth removing.
+      //app.UseHttpsRedirection();
 
       app.UseSwagger();
       app.UseSwaggerUI(c =>
