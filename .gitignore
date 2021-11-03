@@ -28,3 +28,4 @@
 deploy
 /install/setup_CA.sh
 **/*.user
+**.idea**
