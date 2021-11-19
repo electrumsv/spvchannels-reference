@@ -10,7 +10,13 @@ using SPVChannels.Domain.Repositories;
 using SPVChannels.Infrastructure.Auth;
 using SPVChannels.Infrastructure.Utilities;
 using System;
+using System.CommandLine.Invocation;
+using System.IO;
 using System.Linq;
+using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace SPVChannels.API.Rest.Controllers
 {
@@ -23,11 +29,15 @@ namespace SPVChannels.API.Rest.Controllers
     readonly IChannelRepository channelRepository;
     readonly IAPITokenRepository apiTokenRepository;
     readonly ILogger<ChannelController> logger;
-    public ChannelController(IChannelRepository channelRepository, IAPITokenRepository apiTokenRepository, ILogger<ChannelController> logger)
+
+    public ChannelController(
+      IChannelRepository channelRepository,
+      IAPITokenRepository apiTokenRepository,
+      ILogger<ChannelController> logger)
     {
       this.channelRepository = channelRepository ?? throw new ArgumentNullException(nameof(channelRepository));
       this.apiTokenRepository = apiTokenRepository ?? throw new ArgumentNullException(nameof(apiTokenRepository));
-      this.logger = logger ?? throw new ArgumentNullException(nameof(logger));      
+      this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     #region Channel

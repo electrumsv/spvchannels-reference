@@ -24,5 +24,7 @@ namespace SPVChannels.Infrastructure.Utilities
     public int CacheAbsoluteExpirationTime { get; set; } = 600;
 
     public string FirebaseCredentialsFilePath { get; set; }
+
+    public string MasterAccountCreationToken { get; set; }
   }
 }
