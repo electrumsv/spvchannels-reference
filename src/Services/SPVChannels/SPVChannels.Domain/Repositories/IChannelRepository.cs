@@ -14,7 +14,7 @@ namespace SPVChannels.Domain.Repositories
 
     Channel GetChannelByExternalId(string externalId);
 
-    Channel CreateChannel(Channel channel);
+    Channel CreateChannel(Channel channel, string channelId);
 
     void DeleteChannel(string externalId);
 

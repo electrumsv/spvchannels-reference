@@ -49,8 +49,8 @@ namespace SPVChannels.Infrastructure.Repositories
       ).Single();
     }
     #endregion
-
-    public Channel CreateChannel(Channel channel)
+    
+    public Channel CreateChannel(Channel channel, string userDefinedExternalId)
     {
       using var connection = GetNpgsqlConnection();
       connection.Open();
@@ -62,12 +62,17 @@ namespace SPVChannels.Infrastructure.Repositories
 "VALUES(@owner, @externalid, @publicread, @publicwrite, @locked, @sequenced, @minagedays, @maxagedays, @autoprune) " +
 "RETURNING *;"
 ;
+      string externalid; 
+      if (userDefinedExternalId == string.Empty) 
+        externalid = Channel.CreateExternalId();
+      else 
+        externalid = userDefinedExternalId;
 
       var channelRes = connection.Query<Channel>(insertOrUpdate,
         new
         {
           owner = channel.Owner,
-          externalid = Channel.CreateExternalId(),
+          externalid = externalid,
           publicread = channel.PublicRead,
           publicwrite = channel.PublicWrite,
           locked = channel.Locked,

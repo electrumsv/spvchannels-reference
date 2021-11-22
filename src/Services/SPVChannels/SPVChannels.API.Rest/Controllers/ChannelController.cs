@@ -11,12 +11,15 @@ using SPVChannels.Infrastructure.Auth;
 using SPVChannels.Infrastructure.Utilities;
 using System;
 using System.CommandLine.Invocation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
+using SPVChannels.Domain.Models;
 
 namespace SPVChannels.API.Rest.Controllers
 {
@@ -106,7 +109,6 @@ namespace SPVChannels.API.Rest.Controllers
     public ActionResult<ChannelViewModelGet> Post(string accountid, [FromBody]ChannelViewModelCreate data)
     {
       logger.LogInformation($"Creating new channel for account(id) {accountid}.");
-
       if (!long.TryParse(accountid, out long id))
       {
         var error = SPVChannelsHTTPError.NotFound;
@@ -118,9 +120,14 @@ namespace SPVChannels.API.Rest.Controllers
         var error = SPVChannelsHTTPError.RetentionInvalidMinMax;
         return BadRequest(ProblemDetailsFactory.CreateProblemDetails(HttpContext, error.Code, error.Description));
       }
-
-      var newChannel = channelRepository.CreateChannel(data.ToDomainObject(owner: id));
-
+      
+      // Optional ?id=<channel_id> url query parameter
+      var channelId = Request.Query["id"];
+      if (channelId != StringValues.Empty)
+      {
+        logger.LogInformation($"Creating new channel with channelId {channelId}.");
+      }
+      var newChannel = channelRepository.CreateChannel(data.ToDomainObject(owner: id), channelId.ToString());
       var returnResult = new ChannelViewModelGet(newChannel,  Url.Link("GetMessages", new { channelid = newChannel.ExternalId }));
 
       logger.LogInformation($"For accountid {id} was created channel(id): {returnResult.Id}.");
